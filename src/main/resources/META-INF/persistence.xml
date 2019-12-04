@@ -5,11 +5,11 @@
     <class>model.schemas.User</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/balsbotdb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://34.66.178.62/PooDB?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <!--db url-->
       <property name="javax.persistence.jdbc.user" value="root"/>
       <!--db username-->
-      <property name="javax.persistence.jdbc.password" value="m1G4743R4M15H4"/>
+      <property name="javax.persistence.jdbc.password" value="mypooinstance123"/>
       <!--db password-->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
       <property name="hibernate.hbm2ddl.auto" value="validate"/>
