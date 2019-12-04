@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 public class Device {
 
     @Id
-    @Column(name = "idpermission")
+    @Column(name = "device_id")
     private int Id;
     @Column(name = "name")
     private String Name;
@@ -25,16 +25,16 @@ public class Device {
     private Boolean State;
     @ManyToOne
     @JoinColumn(name = "idgroup")
-    private Group group;
+    private Area area;
 
-    public Device(int id, String name, String type, String brand, String model, Boolean state, Group group) {
+    public Device(int id, String name, String type, String brand, String model, Boolean state, Area area) {
         Id = id;
         Name = name;
         Type = type;
         Brand = brand;
         Model = model;
         State = state;
-        this.group = group;
+        this.area = area;
     }
 
     public Device() {
@@ -89,11 +89,11 @@ public class Device {
         State = state;
     }
 
-    public Group getGroup() {
-        return group;
+    public Area getGroup() {
+        return area;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroup(Area area) {
+        this.area = area;
     }
 }

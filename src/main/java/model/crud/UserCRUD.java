@@ -5,6 +5,8 @@
  */
 package model.crud;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
@@ -40,9 +42,10 @@ public class UserCRUD {
         EntityManager manager = EMFBootstrapper.openEntityManager();
         User user = new User();
         try {
-            user = (User) manager.createQuery("from User u where u.Email='" + email + "'").getSingleResult();
+            user = (User) manager.createQuery("from User u where u.email='" + email + "'").getSingleResult();
         }
         catch(PersistenceException e) {
+            System.out.println(e);
             throw e;
         }
 
@@ -54,9 +57,8 @@ public class UserCRUD {
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
-            manager.merge(user);
             clone(user, newuser);
-            manager.persist(user);
+            manager.merge(user);
             transaction.commit();
             System.out.printf("se ha actualizado con exito");
         }
@@ -92,7 +94,8 @@ public class UserCRUD {
         user.setEmail(newuser.getEmail());
         user.setName(newuser.getName());
         user.setPassword(newuser.getPassword());
-        
+        user.setQuestion(newuser.getQuestion());
+        user.setAnswer(newuser.getAnswer());  
     } 
     
 }

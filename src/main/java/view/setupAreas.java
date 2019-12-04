@@ -7,7 +7,7 @@ package view;
 
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
-import controller.AreaCRUD;
+import controller.AreaController;
 
 /**
  *
@@ -16,7 +16,7 @@ import controller.AreaCRUD;
 public class setupAreas extends javax.swing.JFrame {
     HashMap<String, String> areas;
     DefaultListModel defaultListModel;
-    AreaCRUD crud;
+    AreaController crud;
     /**
      * Creates new form setupSpace3
      */
@@ -24,7 +24,7 @@ public class setupAreas extends javax.swing.JFrame {
         initComponents();
         defaultListModel = new DefaultListModel<>();
         areas = new HashMap<String, String>();
-        crud = new AreaCRUD();
+        crud = new AreaController();
         areas = crud.getDataFromController();
         List.setModel(defaultListModel);
         for (int i = 0; i < areas.size(); i++) {
@@ -63,6 +63,11 @@ public class setupAreas extends javax.swing.JFrame {
         });
 
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         areaText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         areaText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -158,7 +163,14 @@ public class setupAreas extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         System.out.println(List.getModel());
+        new Home().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new Home().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void remove(String area){
         List.setModel(defaultListModel);
         defaultListModel.removeElement(area);
@@ -176,39 +188,7 @@ public class setupAreas extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(setupAreas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(setupAreas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(setupAreas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(setupAreas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new setupAreas().setVisible(true);
-
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> List;

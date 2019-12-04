@@ -7,7 +7,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import controller.add_user;
+import controller.UserController;
 import controller.exceptions.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Daniel
  */
 public class Register extends javax.swing.JFrame implements ActionListener {
-add_user Reg = new add_user();
+    UserController Reg = new UserController();
     /**
      * Creates new form Register
      */
@@ -44,6 +44,8 @@ add_user Reg = new add_user();
         jButton2 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
+        questionDrop = new javax.swing.JComboBox<>();
+        answerText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +81,6 @@ add_user Reg = new add_user();
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jButton2.setText("Register");
-        jButton2.setActionCommand("Register");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -97,6 +98,11 @@ add_user Reg = new add_user();
         jPasswordField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordField2.setText("Password");
 
+        questionDrop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name of your first partner", "Did you pass POO?", "This is the question number 3", "What's your social security number?" }));
+
+        answerText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        answerText.setText("Answer");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,11 +119,12 @@ add_user Reg = new add_user();
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(questionDrop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(answerText))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,9 +145,13 @@ add_user Reg = new add_user();
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(questionDrop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(answerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -157,19 +168,15 @@ add_user Reg = new add_user();
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-    try {
-        Reg.nuevo_usuario(this);
-         Login Log=new Login();
-      Log
-              .setVisible(true);
-      this.dispose();
-    } catch (EmptyException ex) {
-        Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-
-
-       
+        try {
+            if (Reg.addNewUser(this)){
+                new Home().setVisible(true);
+                this.dispose();
+            }
+        } catch (EmptyException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -185,21 +192,28 @@ add_user Reg = new add_user();
      */
 
 
-     public String getNombre(){
+    public String getNombre(){
         return jTextField1.getText();
     }
-     public String getCorreo(){
+    public String getCorreo(){
         return jTextField2.getText();
     }
-     public String getContrasena(){
+    public String getContrasena(){
         return jPasswordField1.getText();
     }
-     public String getConfcontrasena(){
+    public String getConfcontrasena(){
         return jPasswordField2.getText();
+    }
+    public int getQuestion(){
+        return questionDrop.getSelectedIndex();
+    }
+    public String getAnswer(){
+        return answerText.getText();
     }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField answerText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -207,6 +221,7 @@ add_user Reg = new add_user();
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> questionDrop;
     // End of variables declaration//GEN-END:variables
 
     @Override
